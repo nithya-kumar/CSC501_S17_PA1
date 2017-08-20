@@ -1,0 +1,46 @@
+What are the advantages and disadvantages of each of the two scheduling policies? Also, give the advantages and disadvantages of the round robin scheduling policy originally implemented in Xinu.
+
+1. Exponential Distribution Scheduler
+
+Advantages
+
+a) Based on randomization, which does not allow the process to be processed in the same order all the time.
+b) Priority of process is changed in a random manner, which avoids starvation of any process.
+c) Process execution is based on the exponential distribution value 'Lambda'.
+
+Disadvantages
+
+a) If the random value is less than the least priority process, then the least priority process will be executed first. In this case, the process with highest priority is not given preference.
+b) If the random value is no less than the highest priority always, the process with the largest priority is chosen always. This behaviour is similar to Xinu Scheduling, which might result in starvation in rare cases (given the 'random' factor).
+
+2. Linux-like Scheduler
+
+Advantages
+
+a) There is no randomization involved.
+b) Process are allocated priority only based on their performance in the current/previous epoch. This gives a fair chance to all processes.
+c) It guarantees that all process run because the scheduling is based on th goodness of the processes.
+
+Disadvantages
+
+a) Can result in greater overhead on the system if there are large number of processes as it might take longer time to compute many parameters like goodness, counter, etc.
+
+3. Xinu Scheduler
+
+Advantages
+a) Highest priority process is given preference always.
+b) Faster as it involves no major computations.
+
+Disadvantages
+a) Starvation of low priority process.
+
+Describe the way each of the schedulers affects the NULL process.
+
+1. Exponential Distribution Scheduler
+NULL process is scheduled when no other process in ready queue.
+
+2. Linux-like Scheduler
+NULL process will not be scheduled as its goodness value is always 0.
+
+3. Xinu Scheduler
+NULL process will not be scheduled.
